@@ -1,14 +1,14 @@
 # Linux Quick Reference
 
-This document is based on my last few years of using Linux Mint (and somewhat less so Ubuntu), and, perhaps even to a bigger extent, on the articles describing advanced Linux commands that I have been reading as of late. The main goal here was to create a reference containing the most important pieces of information (e.g. terminal commands) that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux, and especially when one needs to install Linux from scratch. Also, please note that even though I'm a software engineer, and therefore I am mentioning here certain developer tools, like Docker or IntelliJ, that aren't necessarily relevant for an average or even advanced Linux user.
+For the past couple of years I have been enjoying the opportunity of using Linux Mint as my main OS for software development as well as for some more basic stuff, like web-browsing and casual gaming. However, as I kept using Terminal more and more in my day-to-day tasks, I indeed started wondering, as to what extent I can progress with just command line and how I can easily replicate my local Linux set up on a new machine. This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux.
 
 ## Commands
 
-I assume most Linux users are probably aware of the following commands, and hence I won't be touching on them in this reference: `sudo`, `su`, `pwd`, `ls`, `cd`, `mkdir`, `mv`, `cp`, `rm`, `touch`, `echo`, `cat`, `grep`, `less`, `view`, `vim`. If you don't know what they do, make sure you to check them out before proceeding further (you can find a good link or two in the end of this document).
+I assume most Linux users are probably aware of the following commands, and hence I won't be touching on them in this reference: `sudo`, `su`, `pwd`, `ls`, `cd`, `mkdir`, `mv`, `cp`, `rm`, `touch`, `echo`, `cat`, `grep`, `less`, `view`, `vim`. If you don't know what they do, make sure to check them out before proceeding further (take a look at the links in the end of this document).
 
 ##### Getting Help
 - `man bash` - show the manual page for a command 
-- `tldr tar` - show examples of executing a commmand
+- `tldr tar` - show examples of using a commmand
 
 ##### System Information
 - `inxi -F` - print the detailed system / hardware info
@@ -64,10 +64,14 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `perl -p -i -e 's/find/replace/g' filenames` - replaces a string in one or more files
 
 ##### Users & Groups
-- `passwd` - change password of the current user
-- `useradd`, `userdel`, `su`, `sudo`
-- `w` and `who`
-- `chmod +x script.py` - make a file executable by everyone
+- `id` - print current user and group IDs
+- `sudo useradd john` - create a new user
+- `sudo passwd john` - change password of the user (or just `passwd` for the current user)
+- `sudo userdel -r john` - remove the user and their home directory
+- `sudo groupadd visitor` - create a new group (`groupdel` to delete group)
+- `sudo adduser john visitor` - add the user to the group
+- `w` and `who` - show who is logged in and their activity
+- `chmod u+x script.py` - make a file executable by the user owning it
 - `chown ubuntu:ubuntu ~/Applications` - change ownership of a file / directory
 
 ##### Disks, Partitions, Mounts
@@ -203,8 +207,9 @@ Depending on your Linux distro, you might also want to add more repos to be able
 - `snap install intellij-idea-ultimate`- **Intellij IDEA**, possibly the best IDE for developing any app that is JVM-based, there is also a free community edition with less features 
 - `snap install bitwarden` - **BitWarden**, an open source password manager done right (at least from the user perspective)
 
-- `pip install --user tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
 - `pip install --user s-tui` - **S-TUI**, a cli tool that graps cpu freq, utilization and temperature over time
+
+- `npm install -g tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
 
 And even more useful packages: `apt install htop powertop glances jq apache2-utils`
 
