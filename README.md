@@ -21,14 +21,15 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `history` - print the history of executed commands
 
 ##### System Monitoring
-- `vmstat 1` - print out (every second) the resource utilization in a tabular format
-- `free` - display the amount of free and used memory
 - `top` - show linux processes, cpu utilization, memory usage etc
 - `htop` - an "improved" version of `top`
-- `s-tui` - show graphs of freq, utilization and temprature of CPU, as well as the power usage
+- `glances` - an alternative to `htop`, includes disk and network stats
+- `vmstat 1` - print out (every second) the resource utilization in a tabular format
+- `free` - display the amount of free and used memory
+- `iostat 1` - report (every second) read/write and other statistics for devices and partitions
+- `s-tui` - show graphs of frequency, utilization and temprature of CPU, as well as the power usage
 - `sudo powertop` - power consumption / power management tool
-- `atop` - view the load on the system 
-- `iostat 1` - report (every second) read/write and other statistics for devices and partitions 
+- `stress -c 4` - run 4 CPU-loading workers (can also stress-test memory, io etc.)
 
 ##### Process / System Management
 - `ps aux | grep java` - show running java processes
@@ -77,9 +78,10 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `findmnt` - list (or search in) all mounted file systems
 - `mount /dev/sdb2 /media/myusername/usb/` - mount a file system (e.g. usb drive)
 - `umount /dev/sdb*` - unmount a file system (e.g. usb drive)
-- `mkfs.ext4`
-- `sudo fdisk -l`
-- `sudo parted -l`
+- `mkfs.ext4` (and bunch of other `mkfs.*`) - create a filesystem in a disk partition
+- `sudo fdisk -l` - list / manipulate disk partitions (using MBR, hence only for <2TB disks)
+- `gdisk` - GPT `fdisk` (supports disks >2TB)
+- `sudo parted -l` - an alternative to `fdisk` / `gdisk`
 - `rsync` - sync files to / from a remote host
 
 ##### SSH & HTTP
@@ -118,6 +120,8 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `xargs`
 - `head`
 - `tail`
+- `which`
+- `whereis`
 
 ## Recipies
 
@@ -181,6 +185,7 @@ Depending on your Linux distro, you might also want to add more repos to be able
 - `apt install guake` - **Guake** - a dropdown terminal that can be shown / hidden with a shortcut
 - `apt install tmux` - **Tmux**, a terminal multiplexer, e.g. allows splitting your terminal into panes
 - `apt install vim-gnome` - **Vim**, a version of Vim that allows yanking/pasting to/from the clipboard (`"+y`/`"+p`) 
+- `apt install direnv` - **Direnv**, unclutter your `.bashrc` by moving environment vars to individual `.envrc` files
 - `apt install docker.io` - **Docker**, software for running containers ~*i.e. the lightweight VMs*~
 - `apt install vivaldi-stable` - **Vivaldi**, a browser that supports grouping multiple web pages in a single tab
 - `apt install google-chrome-stable` - **Google Chrome**, a free web browser from Google, IMO a bit more stable than Chromium
@@ -198,9 +203,12 @@ Depending on your Linux distro, you might also want to add more repos to be able
 - `snap install intellij-idea-ultimate`- **Intellij IDEA**, possibly the best IDE for developing any app that is JVM-based, there is also a free community edition with less features 
 - `snap install bitwarden` - **BitWarden**, an open source password manager done right (at least from the user perspective)
 
-- `npm install -g tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
+- `pip install --user tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
+- `pip install --user s-tui` - **S-TUI**, a cli tool that graps cpu freq, utilization and temperature over time
 
-Also: jq, ab, powertop, htop, s-tui, direnv, docker-compose, sdkman
+And even more useful packages: `apt install htop powertop glances jq apache2-utils`
+
+TODO Add to the list: `docker-compose`, `kubectl`, `sdkman`
 
 ## Useful Links
 - [Bash shortcuts](https://github.com/fliptheweb/bash-shortcuts-cheat-sheet)
