@@ -1,4 +1,4 @@
-# Linux Quick Reference
+# Linux via Terminal - Quick Reference
 
 For the past couple of years I have been enjoying the opportunity of using Linux Mint as my main OS for software development as well as for some more basic stuff, like web-browsing and casual gaming. However, as I kept using Terminal more and more in my day-to-day tasks, I indeed started wondering, as to what extent I can progress with just command line and how I can easily replicate my local Linux set up on a new machine. This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux.
 
@@ -99,7 +99,7 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `nmcli` - a cli tool for controlling NetworkManager
 - `ping 8.8.8.8` - test connectity between host and provided IP 
 - `traceroute 8.8.8.8` or `tracepath 8.8.8.8` - trace packets route to a host
-- `dig` or `nslookup` - DNS lookup utilities 
+- `dig example.com` or `nslookup example.com` - tools for "interrogating" DNS name servers 
 - `ip address` (formerly `ifconfig`) - show / manipulate network interfaces
 - `ip route` (formerly `route`) - show / manipulate the IP routing table
 - `ip link set eth0 up/down` (`ifup`/`ifdown`) - enable / disable a network interface
@@ -133,33 +133,35 @@ I assume most Linux users are probably aware of the following commands, and henc
 ### Creating a bootable USB stick from `.iso` file
 - `umount /dev/sdb*`
 - `sudo fdisk –l` and figure out how the USB drive is called (e.g. `/dev/sdb`)
-- `mkfs.vfat /dev/sdb –I`
+- `sudo mkfs.vfat /dev/sdb –I`
 - `dd if=~/Documents/ISOs/linuxmint-19-cinnamon-64bit-beta.iso of=/dev/sdb status=progress`
 
-## Dotfiles
+## Dotfiles & Configs
 
-TODO cover dotfiles
+**TODO** cover dotfiles
 
-- `.bash_aliases`
-- `.bash_logout`
-- `.bash_profile`
 - `.bashrc`
+- `.bash_aliases`
+- `.bash_profile`
 - `.profile`
 - `.inputrc`
 - `.selected_editor`
-- `.npmrc`
 - `.gitconfig`
-- `.tmux.cof`
+- `.npmrc`
+- `.tmux.conf`
+- `.ssh/config`
+- `.gnupg/gpg.conf`
+- `.gnupg/gpg-agent.conf`
 
 ## Filesystem
 
-TODO cover most useful/important paths in the filesystem
+**TODO** cover most useful/important paths in the filesystem
 
-- `/etc/apt`
-- `/var/log`
-- `/usr/lib/jvm/`
 - `~/.xsession-errors`
 - `~/.local/share/applications/`
+
+- `/usr/lib/jvm/`
+- `/var/log`
 
 ## Repos / PPAs
 
@@ -212,14 +214,21 @@ Depending on your Linux distro, you might also want to add more repos to be able
 
 - `npm install -g tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
 
-And even more useful packages: `apt install htop powertop glances jq apache2-utils`
+To use some of the commands from this reference, you will need to install the following packages: `apt install` `htop` `powertop` `glances` `jq` `apache2-utils`
 
-TODO Add to the list: `docker-compose`, `kubectl`, `aws cli`, `sdkman`
+**TODO** Check if there are more packages I need to include. Also, try using flatpak instead of snap, at least for some deps.
+
+**TODO** Add to the list: `docker-compose`, `kubectl`, `aws cli`, `sdkman`
 
 ## Useful Links
+
+After I had almost finished compiling my list of commands, I actually discovered at least a couple of similar (but perhaps more deep) Terminal references, which I'm also including in this section.
+
 - [Bash shortcuts](https://github.com/fliptheweb/bash-shortcuts-cheat-sheet)
 - [Vim shortcuts](https://vim.rtorr.com/)
 - [Tmux shotcuts](https://gist.github.com/MohamedAlaa/2961058)
+- [Linux Mint Community: Terminal Command Reference](https://community.linuxmint.com/tutorial/view/244)
+- [Linux Commands - A practical reference](http://www.pixelbeat.org/cmdline.html)
 - [100 Useful Unit Commands](http://oliverelliott.org/article/computing/ref_unix/)
 - [Deprecated Linux networking commands](https://dougvitale.wordpress.com/2011/12/21/deprecated-linux-networking-commands-and-their-replacements/)
 - [Advanced Bash-Scripting Guide](https://www.tldp.org/LDP/abs/html/abs-guide.html)
