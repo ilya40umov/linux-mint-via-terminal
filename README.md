@@ -82,19 +82,18 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `findmnt` - list (or search in) all mounted file systems
 - `mount /dev/sdb2 /media/myusername/usb/` - mount a file system (e.g. usb drive)
 - `umount /dev/sdb*` - unmount a file system (e.g. usb drive)
-- `mkfs.ext4` (and bunch of other `mkfs.*`) - create a filesystem in a disk partition
+- `mkfs.ext4 /dev/sdb2` (and bunch of other `mkfs.*`) - create a filesystem in a disk partition
 - `sudo fdisk -l` - list / manipulate disk partitions (using MBR, hence only for <2TB disks)
 - `gdisk` - GPT `fdisk` (supports disks >2TB)
 - `sudo parted -l` - an alternative to `fdisk` / `gdisk`
 - `rsync` - sync files to / from a remote host
 
 ##### SSH & HTTP
-- `ssh`
-- `scp`
-- `wget`
-- `curl`
-- `ab`
-- `siege`
+- `ssh -L 9999:remote-postgres:5432 bastion-host` - connect remotely to servers / create tunnels to access resources from a different network 
+- `scp myapp.jar remote-server:/tmp/myapp-1.0.jar` - copy file(s) securely over SSH
+- `wget http://example.com/backup.zip` - non-interactive download of files over HTTP(S) and FTP
+- `curl -XGET http://example.com/api/v1/user/123` - transfer data over HTTP, FTP and other protocols 
+- `ab -n 100 url` - Apache HTTP server benchmarking tool (WARNING! don't DDoS servers you don't own)
 
 ##### Networking
 - `nmcli` - a cli tool for controlling NetworkManager
@@ -111,21 +110,23 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `nmap` - network exploration tool / port scanner
 - `nc` (or more versatile `socat`) - listen on / connect to ports, forward data etc. 
 
-##### Shell Goodies
-- `alias l='ls -l'` - create an alias for a command
-- `jobs`, `fg`, `bg`,
-- `nohup`
-- `time`
-- `watch`
-- `tee`
-- `jq`
-- `wc`
-- `awk`
-- `xargs`
-- `head`
-- `tail`
-- `which`
-- `whereis`
+##### Shell Tools
+- `which` - locate a command in *$PATH*
+- `cat args.txt | xargs command` - turn each line of input into an argument for a command 
+- `alias l='ls -l'` - create an alias for the command
+- `sleep 30 > output.log 2>&1 &` - run a command in the background, redirecting its output to a file
+- `jobs` - list processes started by the current shell (e.g. with `&` or by pressing *Ctrl+Z*)
+- `fg` - run a previously suspended (or started in backgroud) process (spawed by the current shell) in the foreground
+- `bg` - run a previously suspended process in the background 
+- `nohup sleep 30 &` - allow the process started by the shell to outlive it (by ignoring HUP signal) 
+- `time sleep 1` - measure time the command takes to execute 
+- `watch` - run a command repeatedly, monitoring the output
+- `cat my.txt | head -n 10` - limit output to first n lines
+- `tail -n 10 -f output.log` - show last n lines and then keep reading from (following) the file
+- `echo "hello" | tee trace.txt` - read from std in and write to std out cloning output to a file / another command 
+- `cat output.log | grep keyword | wc -l` - count the number of (lines or words), here only those containing a keyword due to `grep`
+- `vmstat 1 | awk '{print $1}'` - use AWK programming language (here used to extract 1st column of a tabular output)
+- `cat file.json | jq .` - prettify / process JSON 
 
 ## Recipies
 
@@ -213,7 +214,7 @@ Depending on your Linux distro, you might also want to add more repos to be able
 
 And even more useful packages: `apt install htop powertop glances jq apache2-utils`
 
-TODO Add to the list: `docker-compose`, `kubectl`, `sdkman`
+TODO Add to the list: `docker-compose`, `kubectl`, `aws cli`, `sdkman`
 
 ## Useful Links
 - [Bash shortcuts](https://github.com/fliptheweb/bash-shortcuts-cheat-sheet)
