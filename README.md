@@ -1,6 +1,6 @@
-# Linux via Terminal - Quick Reference
+# Linux Mint via Terminal - Quick Reference
 
-For the past couple of years I have been enjoying the opportunity of using Linux Mint as my main OS for software development as well as for some more basic stuff, like web-browsing and casual gaming. However, as I kept using Terminal more and more in my day-to-day tasks, I indeed started wondering, as to what extent I can progress with just command line and how I can easily replicate my local Linux set up on a new machine. This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux.
+For the past couple of years I have been using Linux Mint as my main OS for software development as well as for some more basic stuff, like web-browsing and casual gaming. However, as I kept using Terminal more and more in my day-to-day tasks, I indeed started wondering, as to what extent I can go with just command line alone and how I can easily replicate my local Linux set up on a new machine. This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux. Additionally, I have also included a section that covers the software that I tend to install on any new machine I will be working on.
 
 ## Commands
 
@@ -14,11 +14,10 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `inxi -F` - print the detailed system / hardware info
 - `whoami` - return the current user name
 - `uname -a` - print out some basic system info (e.g. Kernel version)
-- `uptime` - show the time the system was up and load average
+- `uptime` - show the time the system was up and the load averages
 - `lsusb` - list USB devices
 - `lspci` - list PCI devices
-- `env` - prints all environment variables
-- `history` - print the history of executed commands
+- `lsblk` - list block devices (e.g. disk partitions and loopback devices)
 
 ##### System Monitoring
 - `top` - show linux processes, cpu utilization, memory usage etc
@@ -34,15 +33,15 @@ I assume most Linux users are probably aware of the following commands, and henc
 ##### Process / System Management
 - `ps aux | grep java` - show running java processes
 - `pstree` - show running prcesses as a tree
-- `kill process_id` - send a signal for the process to terminate
+- `kill process_id` - send a signal for the process to terminate (or `kill -9 pid` to forcefully terminate the process)
 - `crontab -l` - list (edit) cron jobs of the current user 
 - `reboot` - signal system to reboot
-- `poweroff` - signal system to shutdown
+- `poweroff` - signal system to shutdown (works great with *Alt+F2* in Cinnamon/Gnome)
 
 ##### Troubleshooting
 - `dmesg --level err,warn` - show errors/warning in the kernel ring buffer
-- `sudo service --status-all` - show status of all services
-- `sudo systemctl start/stop/restart/reload docker` - start/stop/restart/reload a systemd unit (e.g. docker daemon)
+- `sudo systemctl start|stop|restart|reload docker` - start/stop/restart/reload a systemd unit (e.g. docker daemon)
+- `sudo service --status-all` - show status of all services (can also start/stop/restart/reload individual services)
 - `journalctl -b` - show all journald messages from this boot 
 - `strace -f script.py` - trace system calls
 - `man 2 open` - shows a manual for a system call
@@ -59,7 +58,7 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `md5sum file.tar.gz` - calculate MD5 checksum
 - `find ~/Document -name *.sh` - find files under the given directory
 - `tar xzf source.tar.gz` - extract a gzipped archive in the current directory
-- `zip -r my.zip ~/Documents` - package and compress a directory as zip file
+- `zip -r my.zip ~/Documents` - package and compress a directory as a zip file
 - `sed -i -e 's/find/replace/g' filename` - replaces a string in a file
 - `perl -p -i -e 's/find/replace/g' filenames` - replaces a string in one or more files
 
@@ -75,7 +74,6 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `chown ubuntu:ubuntu ~/Applications` - change ownership of a file / directory
 
 ##### Disks, Partitions, Mounts
-- `lsblk` - list block devices (e.g. disk partitions and loopback devices)
 - `df -h` - report disk space usage
 - `du -sh ~/Documents` - estimate file / directory space usage  
 - `dd if=file.iso of=/dev/usb_drive status=progress` - make a bootable usb drive from an isohybrid file 
@@ -100,17 +98,19 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `ping 8.8.8.8` - test connectity between host and provided IP 
 - `traceroute 8.8.8.8` or `tracepath 8.8.8.8` - trace packets route to a host
 - `dig example.com` or `nslookup example.com` - tools for "interrogating" DNS name servers 
-- `ip address` (formerly `ifconfig`) - show / manipulate network interfaces
-- `ip route` (formerly `route`) - show / manipulate the IP routing table
+- `ip address` (or now deprecated `ifconfig`) - show / manipulate network interfaces
+- `ip route` (or now deprecated `route`) - show / manipulate the IP routing table
 - `ip link set eth0 up/down` (`ifup`/`ifdown`) - enable / disable a network interface
-- `ss -a` (formerly `netstat`) - list open sockets
-- `iw` (formerly `ifconfig`) - show / manipulate wireless devices 
+- `ss -a` (or now deprecated `netstat`) - list open sockets
+- `iw` (or now deprecated `ifconfig`) - show / manipulate wireless devices 
 - `tcpdump -i eth0 port 80` - capture traffic off a network interface
 - `tcpflow -c -i eth0 port 80` - capture and save traffic for analysis / debugging
 - `nmap` - network exploration tool / port scanner
 - `nc` (or more versatile `socat`) - listen on / connect to ports, forward data etc. 
 
 ##### Shell Tools
+- `env` - print all environment variables
+- `history` - print the history of executed commands
 - `which` - locate a command in *$PATH*
 - `cat args.txt | xargs command` - turn each line of input into an argument for a command 
 - `alias l='ls -l'` - create an alias for the command
@@ -118,7 +118,7 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `jobs` - list processes started by the current shell (e.g. with `&` or by pressing *Ctrl+Z*)
 - `fg` - run a previously suspended (or started in backgroud) process (spawed by the current shell) in the foreground
 - `bg` - run a previously suspended process in the background 
-- `nohup sleep 30 &` - allow the process started by the shell to outlive it (by ignoring HUP signal) 
+- `nohup sleep 30 &` - allow the process to outline the shell that it was started from (by ignoring HUP signal) 
 - `time sleep 1` - measure time the command takes to execute 
 - `watch` - run a command repeatedly, monitoring the output
 - `cat my.txt | head -n 10` - limit output to first n lines
@@ -132,38 +132,36 @@ I assume most Linux users are probably aware of the following commands, and henc
 
 ### Creating a bootable USB stick from `.iso` file
 - `umount /dev/sdb*`
-- `sudo fdisk –l` and figure out how the USB drive is called (e.g. `/dev/sdb`)
-- `sudo mkfs.vfat /dev/sdb –I`
+- `sudo fdisk -l` and figure out how the USB drive is called (e.g. `/dev/sdb`)
+- `sudo mkfs.vfat /dev/sdb -I`
 - `dd if=~/Documents/ISOs/linuxmint-19-cinnamon-64bit-beta.iso of=/dev/sdb status=progress`
 
 ## Dotfiles & Configs
 
-**TODO** cover dotfiles
+**NOTE**: Before Bash executes the dot files mentioned below, it also executes commands from `/etc/profile` or `/etc/bash.bashrc` (depends on the type of the shell). You can find more info on this topic in `man bash`.
 
-- `.bashrc`
-- `.bash_aliases`
-- `.bash_profile`
-- `.profile`
-- `.inputrc`
-- `.selected_editor`
-- `.gitconfig`
-- `.npmrc`
-- `.tmux.conf`
-- `.ssh/config`
-- `.gnupg/gpg.conf`
-- `.gnupg/gpg-agent.conf`
+- `.bash_profile` - is executed (by Bash) for interactive login shells (in my case it simply sources `.bashrc`)
+- `.bashrc` - is executed (by Bash) for interactive non-login shells (e.g. the ones started by Tmux, Guake or any other GUI Terminal)
+- `.bash_aliases` - (at least in my case) is sourced directly by `.bashrc`, and contains various command aliases / functions
+- `.profile` - is executed (by Sh, or other shell types if their config is missing) for interactive login shells
+- `.inputrc` - configuration of GNU readline (I only use it to make Bash auto-completion ignore case) 
+- `.selected_editor` - allows setting the default text editor, which, for example, is opened by `crontab -e` 
+- `.gitconfig` - global configuration for Git (the version control tools)
+- `.npmrc` - configuration for `npm`, NodeJS package manager
+- `.tmux.conf` - configration for Tmux
+- `.ssh/config` - configuration for SSH client (allows defining aliases for hosts,  keys to be used for each server etc.)
+- `.gnupg/gpg.conf` - gpg/gpg2 configuration
+- `.gnupg/gpg-agent.conf` - gpg agent configuration (if you are using gpg-agent instead of ssh-agent)
 
 ## Filesystem
 
-**TODO** cover most useful/important paths in the filesystem
+- `~/.xsession-errors` - error log produced by X server (look here if you have troubles logging into the system)
+- `~/.local/share/applications/` - stores user-specific desktop files (place your custom desktop files here) 
 
-- `~/.xsession-errors`
-- `~/.local/share/applications/`
+- `/usr/lib/jvm/` - directory where `apt` / `dpkg` will install Java
+- `/var/log` - contains logs generated by the OS and other apps
 
-- `/usr/lib/jvm/`
-- `/var/log`
-
-## Repos / PPAs
+## Appendix A: Repos / PPAs
 
 In order to be able to install and/or get the latest version of the following software, add the repos mentioned below:  
 
@@ -187,7 +185,7 @@ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-ke
 ```
 Depending on your Linux distro, you might also want to add more repos to be able to use the latest versions of the following: Docker, NodeJS, Postgres etc.
 
-## Software Checklist
+## Appendix B: Software Checklist
 
 - `apt install guake` - **Guake** - a dropdown terminal that can be shown / hidden with a shortcut
 - `apt install tmux` - **Tmux**, a terminal multiplexer, e.g. allows splitting your terminal into panes
@@ -216,13 +214,13 @@ Depending on your Linux distro, you might also want to add more repos to be able
 
 To use some of the commands from this reference, you will need to install the following packages: `apt install` `htop` `powertop` `glances` `jq` `apache2-utils`
 
-**TODO** Check if there are more packages I need to include. Also, try using flatpak instead of snap, at least for some deps.
+**TODO** Check if there are more packages I need to include. Also, try using flatpak instead of snapd, at least for deps that can be installed from flathub.
 
 **TODO** Add to the list: `docker-compose`, `kubectl`, `aws cli`, `sdkman`
 
-## Useful Links
+## Appendix C: Useful Links
 
-After I had almost finished compiling my list of commands, I actually discovered at least a couple of similar (but perhaps more deep) Terminal references, which I'm also including in this section.
+After I had almost finished compiling my list of commands, I actually discovered at least a couple of vastly overlapping Terminal references, which you might also want to check out (see the links below).
 
 - [Bash shortcuts](https://github.com/fliptheweb/bash-shortcuts-cheat-sheet)
 - [Vim shortcuts](https://vim.rtorr.com/)
