@@ -1,20 +1,26 @@
 # Linux Mint via Terminal - Quick Reference
 
-For the past couple of years I have been using Linux Mint as my main OS for software development as well as for some more basic stuff, like web-browsing and casual gaming. However, as I kept using Terminal more and more in my day-to-day tasks, I indeed started wondering, as to what extent I can go with just command line alone and how I can easily replicate my local Linux set up on a new machine. This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux. Additionally, I have also included a section that covers the software that I tend to install on any new machine I will be working on.
+For the past couple of years I have been using Linux Mint as my main OS for software development as well as for some more basic stuff, like web-browsing and casual gaming. 
+However, as I kept using Terminal more and more in my day-to-day tasks, I indeed started wondering as to what extent I can go with just command line alone and how I can easily replicate my local Linux set up on a new machine. 
+This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux. 
+Additionally, I have also included a section that covers the software that I tend to install on any new laptop/desktop I will be working on.
 
 ## Commands
 
-I assume most Linux users are probably aware of the following commands, and hence I won't be touching on them in this reference: `sudo`, `su`, `pwd`, `ls`, `cd`, `mkdir`, `mv`, `cp`, `rm`, `touch`, `echo`, `cat`, `grep`, `less`, `view`, `vim`. If you don't know what they do, make sure to check them out before proceeding further (take a look at the links in the end of this document).
+I assume most Linux users are probably aware of the following commands, and hence I won't be touching on them in this reference: `sudo`, `su`, `pwd`, `ls`, `cd`, `mkdir`, `mv`, `cp`, `rm`, `touch`, `echo`, `cat`, `grep`, `less`, `view`, `vim`.
+If you don't know what they do, make sure to check them out before proceeding further (if you need some learning materials, take a look at the links in the end of this document).
 
 ##### Getting Help
+- `apropos docker` - show names / descriptions of man pages matching a keyword
 - `man bash` - show the manual page for a command 
-- `tldr tar` - show examples of using a commmand
+- `tldr tar` - show examples of using a commmand (find out more at [tldr.sh](http://tldr.sh/))
 
 ##### System Information
 - `inxi -F` - print the detailed system / hardware info
 - `whoami` - return the current user name
 - `uname -a` - print out some basic system info (e.g. Kernel version)
 - `uptime` - show the time the system was up and the load averages
+- `date` - show the current date and time
 - `lsusb` - list USB devices
 - `lspci` - list PCI devices
 - `lsblk` - list block devices (e.g. disk partitions and loopback devices)
@@ -29,6 +35,7 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `s-tui` - show graphs of frequency, utilization and temprature of CPU, as well as the power usage
 - `sudo powertop` - power consumption / power management tool
 - `stress -c 4` - run 4 CPU-loading workers (can also stress-test memory, io etc.)
+- `sudo tlp-stat --battery` - show the battery charge and capacity
 
 ##### Process / System Management
 - `ps aux | grep java` - show running java processes
@@ -36,7 +43,9 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `kill process_id` - send a signal for the process to terminate (or `kill -9 pid` to forcefully terminate the process)
 - `crontab -l` - list (edit) cron jobs of the current user 
 - `reboot` - signal system to reboot
-- `poweroff` - signal system to shutdown (works great with *Alt+F2* in Cinnamon/Gnome)
+- `poweroff` - send the ACPI signal to the system to power down (works great with *Alt+F2* in Cinnamon/Gnome)
+- `halt` - terminate all processes and stop all the CPU functions (but leave it powered on)
+- `shutdown -h now` - shut down the system now (similar to `poweroff`) 
 
 ##### Troubleshooting
 - `dmesg --level err,warn` - show errors/warning in the kernel ring buffer
@@ -57,7 +66,8 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `ln -s file symlink` - create a symbolic link to a file / folder
 - `md5sum file.tar.gz` - calculate MD5 checksum
 - `find ~/Document -name *.sh` - find files under the given directory
-- `tar xzf source.tar.gz` - extract a gzipped archive in the current directory
+- `tar xzf source.tar.gz` - extract a gzipped tarball in the current directory
+- `gzip -d source.gz` - decompress a gzipped file
 - `zip -r my.zip ~/Documents` - package and compress a directory as a zip file
 - `sed -i -e 's/find/replace/g' filename` - replaces a string in a file
 - `perl -p -i -e 's/find/replace/g' filenames` - replaces a string in one or more files
@@ -72,11 +82,14 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `w` and `who` - show who is logged in and their activity
 - `chmod u+x script.py` - make a file executable by the user owning it
 - `chown ubuntu:ubuntu ~/Applications` - change ownership of a file / directory
+- `finger john` - show info about a user
 
 ##### Disks, Partitions, Mounts
 - `df -h` - report disk space usage
 - `du -sh ~/Documents` - estimate file / directory space usage  
 - `dd if=file.iso of=/dev/usb_drive status=progress` - make a bootable usb drive from an isohybrid file 
+- `sync` - write all pending writes on all disks (e.g. to make sure `dd` is finished)
+- `sync; echo 1 > /proc/sys/vm/drop_caches` - clean PageCache
 - `findmnt` - list (or search in) all mounted file systems
 - `mount /dev/sdb2 /media/myusername/usb/` - mount a file system (e.g. usb drive)
 - `umount /dev/sdb*` - unmount a file system (e.g. usb drive)
@@ -128,6 +141,13 @@ I assume most Linux users are probably aware of the following commands, and henc
 - `vmstat 1 | awk '{print $1}'` - use AWK programming language (here used to extract 1st column of a tabular output)
 - `cat file.json | jq .` - prettify / process JSON 
 
+##### Special-Purpose Programs 
+- `cal` - display a calendar
+- `bc` - start a calculator language interpretor 
+- `startx` - initialize an X session (never really had to use this) 
+- `xrandr` - list / manage displays
+- `update-grub` - generate grub config file (by delegating to `grub-mkconfig`) 
+
 ## Recipies
 
 ### Creating a bootable USB stick from `.iso` file
@@ -138,7 +158,7 @@ I assume most Linux users are probably aware of the following commands, and henc
 
 ## Dotfiles & Configs
 
-**NOTE**: Before Bash executes the dot files mentioned below, it also executes commands from `/etc/profile` or `/etc/bash.bashrc` (depends on the type of the shell). You can find more info on this topic in `man bash`.
+**NOTE**: Before Bash executes the dot files mentioned below, it also executes commands from `/etc/profile` or `/etc/bash.bashrc` (all depending on the type of the shell). You can find more info on this topic in `man bash`.
 
 - `.bash_profile` - is executed (by Bash) for interactive login shells (in my case it simply sources `.bashrc`)
 - `.bashrc` - is executed (by Bash) for interactive non-login shells (e.g. the ones started by Tmux, Guake or any other GUI Terminal)
@@ -207,12 +227,17 @@ Depending on your Linux distro, you might also want to add more repos to be able
 - `snap install spotify` - **Spotify**, a music streaming app by Spotify
 - `snap install intellij-idea-ultimate`- **Intellij IDEA**, possibly the best IDE for developing any app that is JVM-based, there is also a free community edition with less features 
 - `snap install bitwarden` - **BitWarden**, an open source password manager done right (at least from the user perspective)
+- `snap install tldr` or `npm install -g tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
 
 - `pip install --user s-tui` - **S-TUI**, a cli tool that graps cpu freq, utilization and temperature over time
 
-- `npm install -g tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
-
-To use some of the commands from this reference, you will need to install the following packages: `apt install` `htop` `powertop` `glances` `jq` `apache2-utils`
+To use some of the commands from this reference, you may also need to `apt install` the following packages:
+- `finger`
+- `htop` 
+- `powertop` 
+- `glances` 
+- `jq` 
+- `apache2-utils`
 
 **TODO** Check if there are more packages I need to include. Also, try using flatpak instead of snapd, at least for deps that can be installed from flathub.
 
