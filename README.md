@@ -5,6 +5,9 @@ However, as I kept using Terminal more and more in my day-to-day tasks, I indeed
 This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux. 
 Additionally, I have also included a section that covers the software that I tend to install on any new laptop/desktop I will be working on.
 
+## TODOs
+- Consider using Flatpak instead of Snappy in the Software section
+
 ## Commands
 
 I assume most Linux users are probably aware of the following commands, and hence I won't be touching on them in this reference: `sudo`, `su`, `pwd`, `ls`, `cd`, `mkdir`, `mv`, `cp`, `rm`, `touch`, `echo`, `cat`, `grep`, `less`, `view`, `vim`.
@@ -40,7 +43,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 ##### Process / System Management
 - `ps aux | grep java` - show running java processes
 - `pstree` - show running prcesses as a tree
-- `kill process_id` - send a signal for the process to terminate (or `kill -9 pid` to forcefully terminate the process)
+- `kill pid` - send a signal for the process to terminate (or `kill -9 pid` to forcefully terminate the process)
 - `crontab -l` - list (edit) cron jobs of the current user 
 - `reboot` - signal system to reboot
 - `poweroff` - send the ACPI signal to the system to power down (works great with *Alt+F2* in Cinnamon/Gnome)
@@ -48,7 +51,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `shutdown -h now` - shut down the system now (similar to `poweroff`) 
 
 ##### Troubleshooting
-- `dmesg --level err,warn` - show errors/warning in the kernel ring buffer
+- `dmesg --level err,warn` - show errors / warnings in the kernel ring buffer
 - `sudo systemctl start|stop|restart|reload docker` - start/stop/restart/reload a systemd unit (e.g. docker daemon)
 - `sudo service --status-all` - show status of all services (can also start/stop/restart/reload individual services)
 - `journalctl -b` - show all journald messages from this boot 
@@ -77,7 +80,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `sudo useradd john` - create a new user
 - `sudo passwd john` - change password of the user (or just `passwd` for the current user)
 - `sudo userdel -r john` - remove the user and their home directory
-- `sudo groupadd visitor` - create a new group (`groupdel` to delete group)
+- `sudo groupadd visitor` - create a new group (`groupdel` to delete a group)
 - `sudo adduser john visitor` - add the user to the group
 - `w` and `who` - show who is logged in and their activity
 - `chmod u+x script.py` - make a file executable by the user owning it
@@ -89,7 +92,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `du -sh ~/Documents` - estimate file / directory space usage  
 - `dd if=file.iso of=/dev/usb_drive status=progress` - make a bootable usb drive from an isohybrid file 
 - `sync` - write all pending writes on all disks (e.g. to make sure `dd` is finished)
-- `sync; echo 1 > /proc/sys/vm/drop_caches` - clean PageCache
+- `sync; echo 1 > /proc/sys/vm/drop_caches` - clean PageCache (may come in handy when benchmarking)
 - `findmnt` - list (or search in) all mounted file systems
 - `mount /dev/sdb2 /media/myusername/usb/` - mount a file system (e.g. usb drive)
 - `umount /dev/sdb*` - unmount a file system (e.g. usb drive)
@@ -119,7 +122,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `tcpdump -i eth0 port 80` - capture traffic off a network interface
 - `tcpflow -c -i eth0 port 80` - capture and save traffic for analysis / debugging
 - `nmap` - network exploration tool / port scanner
-- `nc` (or more versatile `socat`) - listen on / connect to ports, forward data etc. 
+- `nc` (or more versatile `socat`) - listen on / connect to ports, forward packets etc. 
 
 ##### Shell Tools
 - `env` - print all environment variables
@@ -131,7 +134,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `jobs` - list processes started by the current shell (e.g. with `&` or by pressing *Ctrl+Z*)
 - `fg` - run a previously suspended (or started in backgroud) process (spawed by the current shell) in the foreground
 - `bg` - run a previously suspended process in the background 
-- `nohup sleep 30 &` - allow the process to outline the shell that it was started from (by ignoring HUP signal) 
+- `nohup sleep 30 &` - allow the process to outlive the shell that it was started from (by ignoring HUP signal) 
 - `time sleep 1` - measure time the command takes to execute 
 - `watch` - run a command repeatedly, monitoring the output
 - `cat my.txt | head -n 10` - limit output to first n lines
@@ -144,9 +147,9 @@ If you don't know what they do, make sure to check them out before proceeding fu
 ##### Special-Purpose Programs 
 - `cal` - display a calendar
 - `bc` - start a calculator language interpretor 
-- `startx` - initialize an X session (never really had to use this) 
-- `xrandr` - list / manage displays
-- `update-grub` - generate grub config file (by delegating to `grub-mkconfig`) 
+- `startx` - initialize an X session (very unlikely that you will ever need to use this command)
+- `xrandr --output DP-2-2 --same-as eDP-1` - list / manage displays
+- `update-grub` - generate grub config file (delegates to `grub-mkconfig`) 
 
 ## Recipies
 
@@ -158,7 +161,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 
 ## Dotfiles & Configs
 
-**NOTE**: Before Bash executes the dot files mentioned below, it also executes commands from `/etc/profile` or `/etc/bash.bashrc` (all depending on the type of the shell). You can find more info on this topic in `man bash`.
+**NOTE**: Before Bash executes the shell-related dot files mentioned below, it also executes commands from `/etc/profile` or `/etc/bash.bashrc` (all depending on the type of the shell). You can find more info on this topic in `man bash`.
 
 - `.bash_profile` - is executed (by Bash) for interactive login shells (in my case it simply sources `.bashrc`)
 - `.bashrc` - is executed (by Bash) for interactive non-login shells (e.g. the ones started by Tmux, Guake or any other GUI Terminal)
@@ -212,6 +215,7 @@ Depending on your Linux distro, you might also want to add more repos to be able
 - `apt install vim-gnome` - **Vim**, a version of Vim that allows yanking/pasting to/from the clipboard (`"+y`/`"+p`) 
 - `apt install direnv` - **Direnv**, unclutter your `.bashrc` by moving environment vars to individual `.envrc` files
 - `apt install docker.io` - **Docker**, software for running containers ~*i.e. the lightweight VMs*~
+- `apt install docker-compose` - **docker-compose**, bring up and tear down multi-container environments
 - `apt install vivaldi-stable` - **Vivaldi**, a browser that supports grouping multiple web pages in a single tab
 - `apt install google-chrome-stable` - **Google Chrome**, a free web browser from Google, IMO a bit more stable than Chromium
 - `apt install tlp tlp-rdw` - **TLP**, a Linux power management tool, must-have on laptops
@@ -228,8 +232,10 @@ Depending on your Linux distro, you might also want to add more repos to be able
 - `snap install intellij-idea-ultimate`- **Intellij IDEA**, possibly the best IDE for developing any app that is JVM-based, there is also a free community edition with less features 
 - `snap install bitwarden` - **BitWarden**, an open source password manager done right (at least from the user perspective)
 - `snap install tldr` or `npm install -g tldr` - **TLDR**, a great collection of simplified man pages, first stop for help on any terminal command
+- `snap install kubectl` - **kubectl**, a cli for working with k8s clusters
 
 - `pip install --user s-tui` - **S-TUI**, a cli tool that graps cpu freq, utilization and temperature over time
+- `pip install --upgrade --user awscli` - **AWS CLI**, a cli tool to work with Amazon Web Services 
 
 To use some of the commands from this reference, you may also need to `apt install` the following packages:
 - `finger`
@@ -239,13 +245,11 @@ To use some of the commands from this reference, you may also need to `apt insta
 - `jq` 
 - `apache2-utils`
 
-**TODO** Check if there are more packages I need to include. Also, try using flatpak instead of snapd, at least for deps that can be installed from flathub.
-
-**TODO** Add to the list: `docker-compose`, `kubectl`, `aws cli`, `sdkman`
+If you are developing on Java/Kotlin/Scala and hence require different versions of JDK, as well as Gradle, Maven or SBT, you may want to check out [SdkMan](https://sdkman.io/), which can help you out with this task. Alternativelly, you can try installing multiple JDKs via `apt` and switching between them via `update-java-alternatives` / `update-alternatives`, however I personally didn't get far with this approach because a) to install different versions of java I would end up using PPAs that I was not sure I could trust and b) installing a new JDK would sometimes break a previously installed one.
 
 ## Appendix C: Useful Links
 
-After I had almost finished compiling my list of commands, I actually discovered at least a couple of vastly overlapping Terminal references, which you might also want to check out (see the links below).
+After I had almost finished compiling my list of commands, I actually discovered at least a couple of Terminal references that were vastly overlapping with mine, so feel free to check them out as well (see the links below).
 
 - [Bash shortcuts](https://github.com/fliptheweb/bash-shortcuts-cheat-sheet)
 - [Vim shortcuts](https://vim.rtorr.com/)
