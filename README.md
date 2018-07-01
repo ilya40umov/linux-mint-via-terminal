@@ -3,7 +3,8 @@
 For the past couple of years I have been using Linux Mint as my main OS for software development as well as for some more basic stuff, like web-browsing and casual gaming. 
 However, as I kept using Terminal more and more in my day-to-day tasks, I indeed started wondering as to what extent I can go with just command line alone and how I can easily replicate my local Linux set up on a new machine. 
 This all resulted in me coming up with this document, which is meant to contain commands and other pieces of information that are hard to keep in mind all the time, but that come in handy every now and then while working with Linux.
-If some of the commands mentioned below are available on your system, you can check my [Linux Mint Software Checklist](https://github.com/ilya40umov/linux-mint-software-checklist) where list all of the packages / software sources I install on a fresh LM system.
+
+If some of the commands mentioned below are not available on your system, you can check my [Linux Mint Software Checklist](https://github.com/ilya40umov/linux-mint-software-checklist) where I have listed all of the packages / software sources I add to a fresh LM installation.
 
 ## Commands
 
