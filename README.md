@@ -121,6 +121,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `tcpflow -c -i eth0 port 80` - capture and save traffic for analysis / debugging
 - `nmap` - network exploration tool / port scanner
 - `nc` (or more versatile `socat`) - listen on / connect to ports, forward packets etc. 
+- `ipcalc 192.168.1.1/24` - calculate details of a given CIDR
 
 ##### Shell Tools
 - `env` - print all environment variables
