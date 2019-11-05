@@ -17,9 +17,11 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `tldr tar` - show examples of using a commmand (find out more at [tldr.sh](http://tldr.sh/))
 
 ##### System Information
+- `lsb_release -a` - print distribution-specific info
 - `inxi -F` - print the detailed system / hardware info
 - `whoami` - return the current user name
 - `uname -a` - print out some basic system info (e.g. Kernel version)
+- `ps -p $$` - print out which shell is in use
 - `uptime` - show the time the system was up and the load averages
 - `date` - show the current date and time
 - `lsusb` - list USB devices
