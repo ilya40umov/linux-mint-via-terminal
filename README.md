@@ -160,6 +160,10 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `sudo mkfs.vfat /dev/sdb -I`
 - `dd if=~/Documents/ISOs/linuxmint-19-cinnamon-64bit-beta.iso of=/dev/sdb status=progress`
 
+### Benchmarking hard drive
+- `sudo hdparm -Tt /dev/sda` - to get the read performance
+- `dd if=/dev/zero of=/tmp/output conv=fdatasync bs=384k count=1k; rm -f /tmp/output` - to test the write performance
+
 ## Dotfiles & Configs
 
 **NOTE**: Before Bash executes the shell-related dot files mentioned below, it also executes commands from `/etc/profile` or `/etc/bash.bashrc` (all depending on the type of the shell). You can find more info on this topic in `man bash`.
