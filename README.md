@@ -163,6 +163,8 @@ If you don't know what they do, make sure to check them out before proceeding fu
 
 ### Benchmarking hard drive
 - `sudo hdparm -Tt /dev/sda` - to get the read performance
+- `ioping -c 10 -s 1M /tmp` -  to measure latency using 10 requests of 1 megabyte each
+- `fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=/tmp/random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75`
 - `dd if=/dev/zero of=/tmp/output conv=fdatasync bs=384k count=1k; rm -f /tmp/output` - to test the write performance
 
 ## Dotfiles & Configs
