@@ -119,6 +119,7 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `ip route` (or now deprecated `route`) - show / manipulate the IP routing table
 - `ip link set eth0 up/down` (`ifup`/`ifdown`) - enable / disable a network interface
 - `ss -a` (or now deprecated `netstat`) - list open sockets
+- `ss -lntu` (or `sudo netstat -ltup`) - list ports that are listening
 - `iw` (or now deprecated `ifconfig`) - show / manipulate wireless devices 
 - `tcpdump -i eth0 port 80` - capture traffic off a network interface
 - `tcpflow -c -i eth0 port 80` - capture and save traffic for analysis / debugging
@@ -206,4 +207,6 @@ After I had almost finished compiling my list of commands, I actually discovered
 - [100 Useful Unit Commands](http://oliverelliott.org/article/computing/ref_unix/)
 - [Deprecated Linux networking commands](https://dougvitale.wordpress.com/2011/12/21/deprecated-linux-networking-commands-and-their-replacements/)
 - [Advanced Bash-Scripting Guide](https://www.tldp.org/LDP/abs/html/abs-guide.html)
+- [Bash scripting cheatsheet](https://devhints.io/bash)
 - [Guide to using YubiKey as a SmartCard for GPG and SSH](https://github.com/drduh/YubiKey-Guide#export-public-key)
+- [Linux DD Command - 15 Examples with All Options](https://linoxide.com/linux-command/linux-dd-command-create-1gb-file/)
