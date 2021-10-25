@@ -117,7 +117,8 @@ If you don't know what they do, make sure to check them out before proceeding fu
 - `ip route` (or now deprecated `route`) - show / manipulate the IP routing table
 - `ip link set eth0 up/down` (`ifup`/`ifdown`) - enable / disable a network interface
 - `ss -a` (or now deprecated `netstat`) - list open sockets
-- `ss -lntu` (or `sudo netstat -ltup`) - list ports that are listening
+- `ss -lntup` (or `sudo netstat -ltup`) - list ports that are being listened on & PIDs holding those ports
+- `lsof -i :8080` - show the process listening on a local port
 - `iw` (or now deprecated `ifconfig`) - show / manipulate wireless devices 
 - `tcpdump -i eth0 port 80` - capture traffic off a network interface
 - `tcpflow -c -i eth0 port 80` - capture and save traffic for analysis / debugging
